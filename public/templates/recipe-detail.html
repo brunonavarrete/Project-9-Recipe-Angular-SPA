@@ -1,0 +1,180 @@
+<div class="grid-100 row controls">
+  <div class="grid-50">
+    <h2>{{ title }}</h2>
+  </div>
+  <div class="grid-50">
+    <div class="flush-right">
+      <button ng-show="title == 'Add New Recipe'" ng-click="saveRecipe()">Save Recipe</button>
+      <button ng-show="title !== 'Add New Recipe'" ng-click="updateRecipe()">Update Recipe</button>
+      <button ng-click="go('/')" class="secondary">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Name </label>
+    </p>
+  </div>
+  <div class="grid-40">
+    <p>
+      <input type="text" value="{{ recipe.name }}" ng-model="recipe.name">
+    </p>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Description </label>
+    </p>
+  </div>
+  <div class="grid-60">
+    <p>
+      <textarea ng-model="recipe.description">{{ recipe.description }}</textarea>
+    </p>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Category </label>
+    </p>
+  </div>
+  <div class="grid-30">
+    <p>
+      <select ng-model="recipe.category" ng-options="category.name as category.name for category in categories">
+        <option ng-show="!recipe.category" value="">Choose category</option>
+      </select>
+    </p>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Prep Time </label>
+    </p>
+  </div>
+  <div class="grid-20">
+    <p>
+      <input type="number" value="{{ recipe.prepTime }}" ng-model="recipe.prepTime">
+    </p>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Cook Time </label>
+    </p>
+  </div>
+  <div class="grid-20">
+    <p>
+      <input type="number" value="{{ recipe.cookTime }}" ng-model="recipe.cookTime">
+    </p>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Ingredients </label>
+    </p>
+  </div>
+  <div class="grid-30">
+    <p class="label-spacing">
+      <label> Item </label>
+    </p>
+  </div>
+  <div class="grid-30">
+    <p class="label-spacing">
+      <label> Condition </label>
+    </p>
+  </div>
+  <div class="grid-15">
+    <p class="label-spacing">
+      <label> Amount </label>
+    </p>
+  </div>
+
+  <div ng-repeat="ingredient in recipe.ingredients" class="ingredient-row">
+    <div class="prefix-20 grid-30">
+      <p>
+        <select ng-model="ingredient.foodItem" ng-options="item.name as item.name for item in items">
+          <option disabled>Choose ingredient</option>
+        </select>
+        <!-- ng model will select option matching expression -->
+      </p>
+    </div>
+    <div class="grid-30">
+      <p>
+        <input type="text" value="{{ ingredient.condition }}" ng-model="ingredient.condition">
+      </p>
+    </div>
+    <div class="grid-15">
+      <p>
+        <input type="text" value="{{ ingredient.amount }}" ng-model="ingredient.amount">
+      </p>
+    </div>
+    <div class="grid-5 pad-top">
+      <p class="flush-right">
+        <a class="no-action-link" ng-click="deleteIngredient($index)"> <img src="images/delete.svg" height="12px"> </a>
+      </p>
+    </div>
+  </div>
+  <div class="prefix-20 grid-80 add-row">
+    <p>
+      <button ng-click="addIngredient()">+ Add Another Ingredient</button>
+    </p>
+  </div>
+
+</div>
+<div class="clear"></div>
+
+<div class="grid-100 row">
+  <div class="grid-20">
+    <p class="label-spacing">
+      <label> Steps </label>
+    </p>
+  </div>
+  <div class="grid-75">
+    <p class="label-spacing">
+      <label> Description </label>
+    </p>
+  </div>
+
+  <div ng-repeat="step in recipe.steps" class="step-row">
+    <div class="prefix-20 grid-75">
+      <p>
+        <input type="text" value="{{ step.description }}" ng-model="step.description">
+      </p>
+    </div>
+    <div class="grid-5 pad-top">
+      <p class="flush-right">
+        <!-- TODO Add a directive to this anchor element so that you can
+          delete the recipe step when the user clicks on the 'Delete' link. -->
+        <a class="no-action-link" ng-click="deleteStep($index)"> <img src="images/delete.svg" height="12px"> </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="prefix-20 grid-80 add-row">
+    <p>
+     <!-- TODO Add a directive to this button in order to handle
+       when the user clicks to add a new recipe step. -->
+     <button ng-click="addStep()">+ Add Another Step</button>
+    </p>
+  </div>
+
+</div>
+<div class="clear"></div>
+<pre id="" class="card" style="position:fixed;width:250px;left:10px;top:10px;word-wrap:break-word;white-space:normal;background-color:#fff;opacity:0.85">{{recipe}}</pre>
