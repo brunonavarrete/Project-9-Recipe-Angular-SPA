@@ -6,8 +6,6 @@
   </div>
   <div class="grid-70">
     <div class="flush-right">
-      <!-- TODO Add a directive to this button in order to handle 
-        when the user clicks to add a new recipe. -->
       <button ng-click="go('/add')">+ Add Recipe</button>
     </div>
   </div>
@@ -21,7 +19,7 @@
   </div>
 </div>
 
-<div ng-show="recipes.length" class="grid-100 row addHover" ng-repeat="recipe in recipes">
+<div ng-show="recipes.length" class="grid-100 row addHover" ng-repeat="recipe in recipes" ng-init="recipe.deleting = false">
   <a href="/#!/edit/{{ recipe._id }}">
     <div class="grid-70">
       <p>
@@ -34,10 +32,12 @@
       <div class="flush-right">
         <p>
           <a href="/#!/edit/{{ recipe._id }}"> <img src="images/edit.svg" height="12px"> Edit </a>
-          <a class="no-action-link" ng-click="deleteRecipe($index,recipe._id)"> <img src="images/delete.svg" height="12px"> Delete </a>
+          <a href="" ng-hide="!recipe.deleting" ng-click="deleteRecipe($index,recipe._id)" class="no-action-link" style="color:red"> U sure? </a>
+          <a href="" ng-hide="!recipe.deleting" ng-click="recipe.deleting = false" class="no-action-link" style="margin-left:10px;color:dodgerblue"> Go back </a>
+          <a href="" ng-hide="recipe.deleting" ng-click="recipe.deleting = true" class="no-action-link"><img src="images/delete.svg" height="12px"> Delete</a>
         </p>
       </div>
     </div>
   </div>
 </div>
-<pre id="" class="card" style="position:fixed;width:250px;left:10px;top:10px;word-wrap:break-word;white-space:normal;background-color:#fff;opacity:0.85">{{recipes}}</pre>
+<!--pre id="" class="card" style="position:fixed;width:250px;left:10px;top:10px;word-wrap:break-word;white-space:normal;background-color:#fff;opacity:0.85">{{recipes}}</pre-->
